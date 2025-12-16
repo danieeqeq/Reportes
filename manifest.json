@@ -1,6 +1,6 @@
 {
   "name": "Reporte de Ordenes",
-  "short_name": "Reporte",
+  "short_name": "Reporte de Ordenes",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
