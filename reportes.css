@@ -1,0 +1,191 @@
+body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  background-color: #324d5f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 480px;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: #0a1441;
+  font-weight: bold;
+}
+
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="file"],
+form textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-top: 0.4rem;
+  border: 3px solid #010205;
+  border-radius: 40px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: white;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: vertical;
+  min-height: 44px;
+}
+
+form textarea {
+  border-radius: 20px;
+  min-height: 100px;
+}
+
+form input[type="text"]:focus,
+form textarea:focus {
+  background-color: #a08f8fbe;
+  box-shadow: 0 0 8px #007acc80;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #a08f8fbe;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+background-color: #807b7bbe;}
+
+.spinner {
+  border: 4px solid #e0e0e0;   
+  border-top: 4px solid #28a745; 
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mensaje-exito {
+  margin-top: 1rem;
+  color: green;
+  text-align: center;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.logo-img {
+  max-width: 150px;
+  height: auto;
+  display: inline-block;
+}
+
+label {
+  display: block;
+  text-align: left;
+  color: #0a1441;
+  font-weight: bold;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.azul {
+    color: #0a1441;
+    font-weight: bold;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .logo-img {
+    max-width: 120px;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  .azul {
+    font-size: 1rem;
+  }
+
+  form input[type="text"],
+  form input[type="file"],
+  form textarea {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 30px;
+  }
+
+  button {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+form select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-top: 0.4rem;
+  color: #0a1441;
+  border-radius: 50px;
+  
+  font-size: 1rem;
+  background-color: white;
+  color: #333;
+  outline: none;
+  font-weight: bold;
+  margin-top: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.5s;
+  min-height: 44px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='%230078C8' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  border: 3px solid #000;
+  background-size: 2rem;
+  cursor: pointer;
+  padding-right: 0rem; 
+}
+} 

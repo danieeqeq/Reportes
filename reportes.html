@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reporte de Incidencias</title>
+  <link rel="stylesheet" href="reportes.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
+  <meta name="theme-color" content="#0d6efd" />
+</head>
+<body>
+
+<div class="container">
+  <div class="logo-container">
+    <img src="work.png" class="logo-img">
+  </div>
+
+  <h2 class="azul">Inversiones Monte Claro</h2>
+  <h2>Reporte de Orden de Trabajo</h2>
+
+  <!-- FORMULARIO -->
+  <form id="formulario">
+
+    <label>Nombre de Trabajador:</label>
+    <input type="text" name="ficha" required>
+
+    <label>Personal del Requerimiento:</label>
+    <input type="text" name="requerimento" required>
+
+    <label>Centro de Servicio:</label>
+    <select name="area" required>
+      <option value="">Selecciona una opción</option>
+      <option>Centro de Servicio Ate Vitarte</option>
+      <option>Centro de Servicio Breña</option>
+      <option>Centro de Servicio San Juan de Lurigancho</option>
+      <option>Centro de Servicio Surquillo</option>
+      <option>Centro de Servicio Villa el Salvador</option>
+      <option>Otros</option>
+    </select>
+
+    <label>Detallar Orden de Trabajo:</label>
+    <textarea name="detalle" required></textarea>
+
+    <label>Subir imagen:</label>
+    <input type="file" id="imagen">
+    <input type="hidden" name="imagen_url" id="imagen_url">
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <!-- LOADER -->
+  <div id="loader" style="display:none; text-align:center;">
+    <div class="spinner"></div>
+    <p id="loaderText">Procesando...</p>
+  </div>
+
+  <p class="mensaje-exito" id="mensajeExito" style="display:none;">
+    Reporte enviado con éxito
+  </p>
+</div>
+
+<!-- EmailJS -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+emailjs.init("kTx1gUavYDQaK2euC");
+
+document.getElementById("formulario").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const form = this;
+  const archivo = document.getElementById("imagen").files[0];
+  const loader = document.getElementById("loader");
+  const loaderText = document.getElementById("loaderText");
+  const boton = form.querySelector("button");
+
+  loader.style.display = "block";
+  boton.disabled = true;
+
+  if (archivo) {
+    const imgData = new FormData();
+    imgData.append("file", archivo);
+    imgData.append("upload_preset", "reporte_unsigned");
+
+    fetch("https://api.cloudinary.com/v1_1/dsozbhspf/image/upload", {
+      method: "POST",
+      body: imgData
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("imagen_url").value = data.secure_url;
+      enviarDatos();
+    });
+  } else {
+    enviarDatos();
+  }
+
+  function enviarDatos() {
+
+    /* GOOGLE SHEETS (SIN CORS) */
+ const datos = new FormData();
+datos.append('ficha', formulario.ficha.value);
+datos.append('requerimento', formulario.requerimento.value);
+datos.append('area', formulario.area.value);
+datos.append('detalle', formulario.detalle.value);
+
+fetch('https://script.google.com/macros/s/AKfycbz7XF3DEq752qfcKaxuI7DxiP5RopxiFErd2L1bA2BZzAdc2zCOUHFHz3ofsyAg_tnl/exec', {
+  method: 'POST',
+  body: datos
+})
+.then(res => res.text())
+.then(res => console.log('✅ Guardado en Sheets:', res))
+.catch(err => console.error('❌ Error al guardar en hoja:', err));
+
+
+    /* EMAIL */
+    emailjs.sendForm("service_i4s1vcp", "template_56jlzzk", form)
+      .then(() => {
+        loader.style.display = "none";
+        boton.disabled = false;
+        document.getElementById("mensajeExito").style.display = "block";
+        form.reset();
+      })
+      .catch(() => {
+        alert("Error al enviar correo");
+        boton.disabled = false;
+      });
+  }
+});
+</script>
+
+</body>
+</html>
